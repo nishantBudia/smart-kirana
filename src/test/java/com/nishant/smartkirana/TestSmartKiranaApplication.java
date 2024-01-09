@@ -11,20 +11,21 @@ import org.testcontainers.utility.DockerImageName;
 @TestConfiguration(proxyBeanMethods = false)
 public class TestSmartKiranaApplication {
 
-	@Bean
-	@ServiceConnection
-	MongoDBContainer mongoDbContainer() {
-		return new MongoDBContainer(DockerImageName.parse("mongo:latest"));
-	}
+  @Bean
+  @ServiceConnection
+  MongoDBContainer mongoDbContainer() {
+    return new MongoDBContainer(DockerImageName.parse("mongo:latest"));
+  }
 
-	@Bean
-	@ServiceConnection(name = "redis")
-	GenericContainer<?> redisContainer() {
-		return new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379);
-	}
+  @Bean
+  @ServiceConnection(name = "redis")
+  GenericContainer<?> redisContainer() {
+    return new GenericContainer<>(DockerImageName.parse("redis:latest")).withExposedPorts(6379);
+  }
 
-	public static void main(String[] args) {
-		SpringApplication.from(SmartKiranaApplication::main).with(TestSmartKiranaApplication.class).run(args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.from(SmartKiranaApplication::main)
+        .with(TestSmartKiranaApplication.class)
+        .run(args);
+  }
 }
